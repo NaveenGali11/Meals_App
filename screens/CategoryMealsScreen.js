@@ -1,29 +1,50 @@
 import React from "react";
-import { Button, Platform, StyleSheet, Text, View } from "react-native";
-import { HeaderTitle } from "react-navigation-stack";
-import Colors from "../constants/Colors";
+import {
+  Button,
+  FlatList,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
-import { CATEGORIES } from "../data/dummy-dash";
+import { CATEGORIES, MEALS } from "../data/dummy-dash";
+import MealItem from "../components/MealItem";
 
 const CategoryMealsScreen = (props) => {
+  const renderMealItem = (itemData) => {
+    return (
+      <MealItem
+        title={itemData.item.title}
+        duration={itemData.item.duration}
+        affordabilty={itemData.item.affordability}
+        complexity={itemData.item.complexity}
+        image={itemData.item.imageUrl}
+        onSelectMeal={() => {
+          props.navigation.navigate({
+            routeName: "MealsDetails",
+            params: {
+              mealId: itemData.item.id,
+            },
+          });
+        }}
+      />
+    );
+  };
+
   const catId = props.navigation.getParam("categoryId");
 
-  const selectedCategory = CATEGORIES.find((cat) => cat.id === catId);
+  const displayedMeals = MEALS.filter(
+    (meal) => meal.categoryIds.indexOf(catId) >= 0
+  );
 
   return (
     <View style={styles.CategoryMealsScreen}>
-      <Text>{selectedCategory.title}</Text>
-      <Button
-        title="Go to Meal Details"
-        onPress={() => {
-          props.navigation.push("MealsDetails");
-        }}
-      />
-      <Button
-        title="Go Back !"
-        onPress={() => {
-          props.navigation.goBack();
-        }}
+      <FlatList
+        data={displayedMeals}
+        keyExtractor={(item, index) => item.id}
+        renderItem={renderMealItem}
+        style={{ width: "100%" }}
       />
     </View>
   );

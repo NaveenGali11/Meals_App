@@ -1,26 +1,41 @@
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
-const MealsDetilsScreen = (props) => {
+import { MEALS } from "../data/dummy-dash";
+
+const MealsDetailsScreen = (props) => {
+  const mealId = props.navigation.getParam("mealId");
+
+  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
   return (
-    <View style={styles.MealsDetilsScreen}>
-      <Text>The MealsDetilsScreen Page</Text>
+    <View style={styles.MealsDetailsScreen}>
+      <Text>{selectedMeal.title}</Text>
       <Button
-        title="Go Back to Categories"
+        title="Go Back to Categories Meals"
         onPress={() => {
-          props.navigation.popToTop();
+          props.navigation.navigate({ routeName: "CategoryMeals" });
         }}
       />
     </View>
   );
 };
 
+MealsDetailsScreen.navigationOptions = (navigationData) => {
+  const mealID = navigationData.navigation.getParam("mealId");
+  const selectedMeal = MEALS.find((meal) => meal.id === mealID);
+
+  return {
+    headerTitle: selectedMeal.title,
+  };
+};
+
 const styles = StyleSheet.create({
-  MealsDetilsScreen: {
+  MealsDetailsScreen: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
 });
 
-export default MealsDetilsScreen;
+export default MealsDetailsScreen;
