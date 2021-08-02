@@ -41,11 +41,11 @@ const styles = StyleSheet.create({
   },
   mealItem: {
     height: 200,
-    // backgroundColor: "#f5f5f5",
     backgroundColor: "#ccc",
     margin: 5,
     borderRadius: 10,
     overflow: "hidden",
+    marginVertical: 10,
   },
   mealHeader: {
     height: "85%",

@@ -1,13 +1,17 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const FavouritesScreen = (props) => {
+const FavoritesScreen = (props) => {
   return (
     <View style={styles.FavouritesScreen}>
       <Text>The FavouritesScreen Page</Text>
     </View>
   );
 };
+
+// FavouritesScreen.navigationOptions = {
+//   head
+// }
 
 const styles = StyleSheet.create({
   FavouritesScreen: {
@@ -17,4 +21,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FavouritesScreen;
+export default FavoritesScreen;
