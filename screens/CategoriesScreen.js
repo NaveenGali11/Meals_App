@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  DrawerLayoutAndroid,
   FlatList,
   Platform,
   StyleSheet,
@@ -8,10 +9,13 @@ import {
   View,
 } from "react-native";
 
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+
 import { CATEGORIES } from "../data/dummy-dash";
 
 import Colors from "../constants/Colors";
 import CategoryGridTile from "../components/CategoryGridTile";
+import HeaderButton from "../components/HeaderButton";
 
 const CategoriesScreen = (props) => {
   const renderGridItem = (itemData) => {
@@ -35,8 +39,22 @@ const CategoriesScreen = (props) => {
   );
 };
 
-CategoriesScreen.navigationOptions = {
-  headerTitle: "Meal Category",
+CategoriesScreen.navigationOptions = (navData) => {
+  return {
+    headerTitle: "Meal Category",
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Menu"
+          iconName="ios-menu"
+          onPress={() => {
+            navData.navigation.toggleDrawer();
+          }}
+          color="white"
+        />
+      </HeaderButtons>
+    ),
+  };
 };
 
 const styles = StyleSheet.create({
